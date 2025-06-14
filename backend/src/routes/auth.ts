@@ -2,6 +2,8 @@ import { Router } from "express";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "../lib/auth";
 
-export const index = Router();
+const router = Router();
 
-index.all("/api/auth/{*any}", toNodeHandler(auth));
+router.all("/api/auth/{*any}", toNodeHandler(auth));
+
+export default router;
