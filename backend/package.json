@@ -22,6 +22,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@prisma/client": "^6.9.0",
+        "better-auth": "^1.2.9",
         "express": "^4.16.2",
         "http-errors": "^1.7.1",
         "morgan": "^1.9.1"
@@ -41,6 +43,7 @@
     },
     "pnpm": {
         "onlyBuiltDependencies": [
+            "@prisma/client",
             "@prisma/engines",
             "prisma"
         ]
