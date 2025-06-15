@@ -28,16 +28,16 @@ for auth i am using better-auth so refer to better-auth docs for frontend
 
 - Use this inside lib/auth-client.ts in react/nextjs app
 
-```
-import { createAuthClient } from "better-auth/react"
+```js
+import { createAuthClient } from "better-auth/react";
 export const authClient = createAuthClient({
-    baseURL: "http://localhost:3000"
-})
+  baseURL: "http://localhost:3000",
+});
 ```
 
 i have modified the some functions of better-auth like this
 
-```
+```js
 authClient.signUp.email({
         email, // user email address
         password, // user password -> min 8 characters by default
@@ -48,7 +48,7 @@ authClient.signUp.email({
     } as any); // use this any to aviod ts error
 ```
 
-```
+```js
 authClient.updateUser({
         name?, // user display name
         image?, // User image URL (optional)
