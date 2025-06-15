@@ -15,15 +15,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String     @id
   name          String
   email         String
   emailVerified Boolean
   image         String?
+  location      String?
+  city          String?
+  district      String?
+  state         String?
+  userType      String?    @default("client") // e.g. "advocate", "client", "admin"
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  advocates     advocates?
 
   @@unique([email])
   @@map("user")
@@ -72,4 +78,68 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model advocates {
+  advocate_id               String   @id @default(uuid()) @db.Uuid
+  name                      String
+  registration_number       String
+  reference_number          String
+  verification_document_url String
+  contact_email             String
+  phone_number              String
+  qualification             String
+  experience_years          Int
+  profile_photo_url         String
+  availability_status       Boolean
+  language_preferences      String[]
+  location_city             String
+  jurisdiction_states       String[]
+  fee_structure             Json
+  userId                    String   @unique
+  user                      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  specializations advocate_specializations[]
+  ratings         advocate_ratings[]
+}
+
+enum Specialization {
+  CRIMINAL
+  CIVIL
+  CORPORATE
+  FAMILY
+  CYBER
+  INTELLECTUAL_PROPERTY
+  TAXATION
+  LABOR
+  ENVIRONMENT
+  HUMAN_RIGHTS
+  OTHER
+}
+
+model advocate_specializations {
+  id             String         @id @default(uuid()) @db.Uuid
+  advocate_id    String         @db.Uuid
+  specialization Specialization
+
+  advocate advocates @relation(fields: [advocate_id], references: [advocate_id])
+}
+
+model advocate_ratings {
+  rating_id   String   @id @default(uuid()) @db.Uuid
+  advocate_id String   @db.Uuid
+  user_id     String   @db.Uuid
+  stars       Int
+  feedback    String
+  created_at  DateTime @default(now()) @db.Timestamp
+
+  advocate advocates @relation(fields: [advocate_id], references: [advocate_id])
+}
+
+model jurisdictions {
+  jurisdiction_id String  @id @default(uuid()) @db.Uuid
+  name            String // e.g. "Supreme Court of India", "Calcutta High Court", "District Court, Delhi"
+  level           String // e.g. "Supreme", "High", "District", "Tribunal"
+  state_name      String // Applicable for High or District courts; can be NULL for Supreme
+  bench           String? // e.g. "Delhi Bench", "Bangalore Bench" (optional)
 }
