@@ -1,5 +1,7 @@
 # Getting started
 
+put the .env file into the backend folder
+
 - Install dependencies
 
 ```
@@ -7,7 +9,7 @@ cd backend
 npm install
 ```
 
-- Build and run the project
+- run the project in development
 
 ```
 npm run dev
@@ -57,4 +59,4 @@ authClient.updateUser({
     } as any); // use this any to aviod ts error
 ```
 
-- to use this auth client refer to this page [AuthClient Documentation](https://www.better-auth.com/docs/basic-usage)
+- to use this auth client refer to this page [Better-Auth Documentation](https://www.better-auth.com/docs/basic-usage)
